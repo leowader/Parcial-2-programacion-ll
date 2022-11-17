@@ -46,6 +46,7 @@ namespace PresentacionGui
         void cargarGrilla()
         {
             GrillaCategorias.DataSource = servicioCategoria.Mostrar();
+
         }
         private void btnConsultar_Click(object sender, EventArgs e)
         {
@@ -56,10 +57,10 @@ namespace PresentacionGui
         ServicioCategoria servicioCategoria = new ServicioCategoria();
         public void categoria()
         {
-            var EscuelaNombre = servicioCategoria.Mostrar();
-            if (EscuelaNombre != null)
+            var categoria = servicioCategoria.Mostrar();
+            if (categoria != null)
             {
-                foreach (var item in EscuelaNombre)
+                foreach (var item in categoria)
                 {
                     comboBoxCategoria.Items.Add(item.IdCategoria);
                 }
