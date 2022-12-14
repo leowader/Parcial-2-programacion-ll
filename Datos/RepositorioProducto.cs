@@ -58,14 +58,6 @@ namespace Datos
             producto.categoria = buscarCategoria(int.Parse(linea.Split(';')[2]));
             producto.FechaVencimiento = DateTime.Parse(linea.Split(';')[3]);
             producto.Precio = double.Parse(linea.Split(';')[4]);
-            //var producto = new Producto
-            //{
-            //    Referencia = linea.Split(';')[0],
-            //    Nombre = linea.Trim().Split(';')[1],
-            //    categoria = buscarCategoria(int.Parse(linea.Split(';')[2])),
-            //    FechaVencimiento =DateTime.Parse(linea.Split(';')[3]),
-            //    Precio=double.Parse(linea.Split(';')[4]),
-            //};
             return producto;
         }
         RepositorioCategoria repositorioCategoria = new RepositorioCategoria();
