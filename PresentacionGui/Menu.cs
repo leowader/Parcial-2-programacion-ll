@@ -30,6 +30,10 @@ namespace PresentacionGui
 
         private void salirMenu_Click(object sender, EventArgs e)
         {
+            salir();
+        }
+        public void salir()
+        {
             this.Dispose();
         }
     }

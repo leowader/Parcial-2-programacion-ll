@@ -11,6 +11,7 @@ namespace Logica
     {
         List<Producto> ListaProductos;
         Datos.RepositorioProducto RepositorioProducto = new Datos.RepositorioProducto();
+        bool estado1;
         public ServicioProducto()
         {
             ListaProductos = RepositorioProducto.Leer();
@@ -23,27 +24,53 @@ namespace Logica
         {
             try
             {
-                var estado = RepositorioProducto.Guardar(producto);
-                return estado ? $"INFORMACION  GUARDADA" :
-                $"ERROR AL GUARDAR LA INFORMACION ";
+                var resultado = verificarReferencia(producto.Referencia);
+                if (resultado==false)
+                {
+                    var estado = RepositorioProducto.Guardar(producto);
+                    return estado ? $"INFORMACION  GUARDADA {producto.Nombre.ToUpper()}" : 
+                        $"ERROR AL GUARDAR LA INFORMACION {producto.Nombre.ToUpper()} ";
+                }
+                else
+                {
+                    return $"EL PRODUCTO CON :{producto.Referencia} YA ESTA REGISTRADO";
+                }
             }
             catch (Exception e)
             {
                 return e.Message;
             }
+        }
+        public bool verificarReferencia(string referencia)
+        {
             
+            foreach (var item in Mostrar())
+            {
+                if (item.Referencia.Equals(referencia))
+                {
+                   estado1=true;
+                }
+                else
+                {
+                    estado1=false;
+                }
+            }
+            return estado1;
+
         }
         public List<Producto> Mostrar()
         {
             return ListaProductos;
         }
-        public List<Producto> BuscarByCategoria(string nombre)
+        public List<Producto> BuscarByCategoriaYname(string nombre)
         {
+            
             ActualizarLit();
             var lista = new List<Producto>();
             foreach (var item in ListaProductos)
             {
-                if (item.Categorianame.StartsWith(nombre))
+                var cate = item.categoria.nombreCategoria;
+                if (cate.StartsWith(nombre) || item.Nombre.StartsWith(nombre))
                 {
                     lista.Add(item);
                 }

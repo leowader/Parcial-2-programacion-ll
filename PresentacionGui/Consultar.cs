@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,14 +14,19 @@ namespace PresentacionGui
 {
     public partial class Consultar : Form
     {
+        Logica.ServicioProducto ServicioProducto = new Logica.ServicioProducto();
         public Consultar()
         {
             InitializeComponent();
             CargarGrilla();
         }
-
-        Logica.ServicioCategoria servicio = new Logica.ServicioCategoria();
-        Logica.ServicioProducto ServicioProducto = new Logica.ServicioProducto();
+        void Llenar(List<Producto>lista)
+        {
+            foreach (var item in lista)
+            {
+                GrilaProductos.Rows.Add(item.Referencia, item.Nombre, item.categoria.nombreCategoria, item.FechaVencimiento.ToShortDateString(), item.Precio);
+            }
+        }
         void CargarGrilla()
         {
             if (ServicioProducto.Mostrar() == null)
@@ -30,46 +36,15 @@ namespace PresentacionGui
             else
             {
                 GrilaProductos.Rows.Clear();
-                foreach (var item in ServicioProducto.Mostrar())
-                {
-                    int n = GrilaProductos.Rows.Add();
-                    GrilaProductos.Rows[n].Cells[0].Value = item.Referencia;
-                    GrilaProductos.Rows[n].Cells[1].Value = item.Nombre;
-                    GrilaProductos.Rows[n].Cells[2].Value = item.Categorianame;
-                    GrilaProductos.Rows[n].Cells[3].Value = item.FechaVencimiento.ToShortDateString();
-                    GrilaProductos.Rows[n].Cells[4].Value = item.Precio;
-                }
+                //GrilaProductos.DataSource=ServicioProducto.Mostrar();
+                Llenar(ServicioProducto.Mostrar());
             }
         }
         void BuscarByName()
         {
-            var resultadoBusqueda=VerificarBusqueda(txtBuscar.Text);
-            if (resultadoBusqueda==false)
-            {
-                MessageBox.Show("NO SE ENCONTRARON COINCIDENCIAS", "INFO", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                VerificarBusqueda(txtBuscar.Text);
-            }
-        }
-        bool estado;
-        bool VerificarBusqueda(String nombre)
-        {
-            
-            var lista = ServicioProducto.Mostrar();
-            List<Producto> productos = new List<Producto>();
-            foreach (var item in lista)
-            {
-                if (item.Nombre.Equals(nombre))
-                {
-                    GrilaProductos.Rows.Clear();
-                    productos.Add(item);
-                    GrilaProductos.Rows.Add(item.Referencia, item.Nombre, item.Categorianame, item.FechaVencimiento.ToShortDateString(), item.Precio);
-                    estado = true;
-                }
-            }
-            return estado;
+            GrilaProductos.Rows.Clear();
+            var lista =ServicioProducto.BuscarByCategoriaYname(txtBuscar.Text);
+            Llenar(lista);
         }
         private void Consultar_Load(object sender, EventArgs e)
         {
@@ -105,11 +80,8 @@ namespace PresentacionGui
         void BusarCategoria()
         {
             GrilaProductos.Rows.Clear();
-            var lista = ServicioProducto.BuscarByCategoria(txtBuscar.Text);
-            foreach (var item in lista)
-            {
-                GrilaProductos.Rows.Add(item.Referencia, item.Nombre, item.Categorianame, item.FechaVencimiento.ToShortDateString(), item.Precio);
-            }
+            var lista = ServicioProducto.BuscarByCategoriaYname(txtBuscar.Text);
+            Llenar(lista);
         }
         void BuscarFecha()
         {
@@ -121,11 +93,7 @@ namespace PresentacionGui
             {
                 GrilaProductos.Rows.Clear();
                 var lista = ServicioProducto.BuscarByMes(int.Parse(txtBuscar.Text));
-                foreach (var item in lista)
-                {
-                    
-                    GrilaProductos.Rows.Add(item.Referencia, item.Nombre, item.Categorianame, item.FechaVencimiento.ToShortDateString(), item.Precio);
-                }
+                Llenar(lista);
             }
         }
         private void txtBuscar_TextChanged(object sender, EventArgs e)
@@ -136,18 +104,9 @@ namespace PresentacionGui
             }
             else
             {
-                if (RbCategoria.Checked)
-                {
-                    GrilaProductos.Rows.Clear();
-                    foreach (var item in ServicioProducto.BuscarByCategoria(txtBuscar.Text))
-                    {
-                        GrilaProductos.Rows.Add(item.Referencia, item.Nombre, item.Categorianame, item.FechaVencimiento.ToShortDateString(), item.Precio);
-                    }
-                }
+                Buscar();
             }
-            
         }
-
         private void btnVolver_Click(object sender, EventArgs e)
         {
             Parcial parcial = new Parcial();

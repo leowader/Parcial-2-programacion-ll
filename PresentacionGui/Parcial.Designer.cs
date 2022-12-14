@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.GrillaCategorias = new System.Windows.Forms.DataGridView();
             this.dateFecha = new System.Windows.Forms.DateTimePicker();
             this.comboBoxCategoria = new System.Windows.Forms.ComboBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
@@ -45,10 +46,9 @@
             this.btnConsultar = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.btnlimpiar = new System.Windows.Forms.Button();
-            this.GrillaCategorias = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GrillaCategorias)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -71,11 +71,24 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Insert";
             // 
+            // GrillaCategorias
+            // 
+            this.GrillaCategorias.AllowUserToAddRows = false;
+            this.GrillaCategorias.AllowUserToDeleteRows = false;
+            this.GrillaCategorias.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.GrillaCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GrillaCategorias.Location = new System.Drawing.Point(270, 13);
+            this.GrillaCategorias.Name = "GrillaCategorias";
+            this.GrillaCategorias.ReadOnly = true;
+            this.GrillaCategorias.RowHeadersVisible = false;
+            this.GrillaCategorias.Size = new System.Drawing.Size(218, 206);
+            this.GrillaCategorias.TabIndex = 12;
+            // 
             // dateFecha
             // 
             this.dateFecha.Location = new System.Drawing.Point(121, 129);
             this.dateFecha.Name = "dateFecha";
-            this.dateFecha.Size = new System.Drawing.Size(165, 20);
+            this.dateFecha.Size = new System.Drawing.Size(132, 20);
             this.dateFecha.TabIndex = 11;
             // 
             // comboBoxCategoria
@@ -83,28 +96,28 @@
             this.comboBoxCategoria.FormattingEnabled = true;
             this.comboBoxCategoria.Location = new System.Drawing.Point(121, 101);
             this.comboBoxCategoria.Name = "comboBoxCategoria";
-            this.comboBoxCategoria.Size = new System.Drawing.Size(165, 21);
+            this.comboBoxCategoria.Size = new System.Drawing.Size(132, 21);
             this.comboBoxCategoria.TabIndex = 10;
             // 
             // txtPrecio
             // 
             this.txtPrecio.Location = new System.Drawing.Point(121, 156);
             this.txtPrecio.Name = "txtPrecio";
-            this.txtPrecio.Size = new System.Drawing.Size(165, 20);
+            this.txtPrecio.Size = new System.Drawing.Size(132, 20);
             this.txtPrecio.TabIndex = 9;
             // 
             // txtnombre
             // 
             this.txtnombre.Location = new System.Drawing.Point(121, 71);
             this.txtnombre.Name = "txtnombre";
-            this.txtnombre.Size = new System.Drawing.Size(165, 20);
+            this.txtnombre.Size = new System.Drawing.Size(132, 20);
             this.txtnombre.TabIndex = 8;
             // 
             // txtReferencia
             // 
             this.txtReferencia.Location = new System.Drawing.Point(121, 35);
             this.txtReferencia.Name = "txtReferencia";
-            this.txtReferencia.Size = new System.Drawing.Size(165, 20);
+            this.txtReferencia.Size = new System.Drawing.Size(132, 20);
             this.txtReferencia.TabIndex = 7;
             // 
             // label5
@@ -216,19 +229,6 @@
             this.btnlimpiar.UseVisualStyleBackColor = true;
             this.btnlimpiar.Click += new System.EventHandler(this.btnlimpiar_Click);
             // 
-            // GrillaCategorias
-            // 
-            this.GrillaCategorias.AllowUserToAddRows = false;
-            this.GrillaCategorias.AllowUserToDeleteRows = false;
-            this.GrillaCategorias.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.GrillaCategorias.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.GrillaCategorias.Location = new System.Drawing.Point(305, 13);
-            this.GrillaCategorias.Name = "GrillaCategorias";
-            this.GrillaCategorias.ReadOnly = true;
-            this.GrillaCategorias.RowHeadersVisible = false;
-            this.GrillaCategorias.Size = new System.Drawing.Size(183, 206);
-            this.GrillaCategorias.TabIndex = 12;
-            // 
             // Parcial
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -241,8 +241,8 @@
             this.Text = "Form1";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GrillaCategorias)).EndInit();
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

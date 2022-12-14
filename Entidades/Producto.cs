@@ -10,13 +10,13 @@ namespace Entidades
     {
         public string Referencia { get; set; }
         public string Nombre { get; set; }
-        public string Categorianame { get; set; }
         public DateTime FechaVencimiento { get; set; }
         public double Precio { get; set; }
+        public Categoria categoria { get; set; }
 
         public override string ToString()
         {
-            return $"{Referencia};{Nombre};{Categorianame};{FechaVencimiento};{Precio}";
+            return $"{Referencia};{Nombre};{categoria.IdCategoria};{FechaVencimiento};{Precio}";
         }
     }
 }

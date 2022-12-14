@@ -31,16 +31,14 @@ namespace PresentacionGui
             }
             else
             {
-                int idcategoria = int.Parse(comboBoxCategoria.SelectedItem.ToString());
                 Entidades.Producto producto = new Entidades.Producto();
                 producto.Referencia = (txtReferencia.Text);
                 producto.Nombre = txtnombre.Text;
-                var categoria1 = servicioCategoria.buscar(idcategoria);
-                producto.Categorianame = categoria1.nombreCategoria;
+                producto.categoria = servicioCategoria.buscar(comboBoxCategoria.Text);
                 producto.FechaVencimiento = DateTime.Parse(dateFecha.Value.ToString());
                 producto.Precio = double.Parse(txtPrecio.Text);
                 var mensage = ServicioProducto.Guardar(producto);
-                MessageBox.Show(mensage);
+                MessageBox.Show(mensage,"info",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         }
         void cargarGrilla()
@@ -57,18 +55,17 @@ namespace PresentacionGui
         ServicioCategoria servicioCategoria = new ServicioCategoria();
         public void categoria()
         {
-            var categoria = servicioCategoria.Mostrar();
-            if (categoria != null)
-            {
-                foreach (var item in categoria)
-                {
-                    comboBoxCategoria.Items.Add(item.IdCategoria);
-                }
-            }
+            comboBoxCategoria.DataSource= servicioCategoria.Mostrar();
+            comboBoxCategoria.DisplayMember = "NombreCategoria";
         }
+
         private void btnSalir_Click(object sender, EventArgs e)
         {
-            this.Close();
+            var men=MessageBox.Show("seguro de salir? ","salir?",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (men==DialogResult.Yes)
+            {
+                this.Dispose();
+            }
         }
         private void btnlimpiar_Click(object sender, EventArgs e)
         {
@@ -84,8 +81,12 @@ namespace PresentacionGui
         }
         private void btnVolver_Click(object sender, EventArgs e)
         {
+           
+        }
+        void volver()
+        {
             Menu mainMenu = new Menu();
-            this.Visible=false;
+            this.Close();
             mainMenu.ShowDialog();
         }
     }

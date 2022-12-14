@@ -52,15 +52,35 @@ namespace Datos
         }
         public Producto Mapear(string linea)
         {
-            var producto = new Producto
-            {
-                Referencia = linea.Split(';')[0],
-                Nombre = linea.Trim().Split(';')[1],
-                Categorianame = linea.Split(';')[2],
-                FechaVencimiento =DateTime.Parse(linea.Split(';')[3]),
-                Precio=double.Parse(linea.Split(';')[4]),
-            };
+            var producto = new Producto();
+            producto.Referencia = linea.Split(';')[0];
+            producto.Nombre=linea.Split(';')[1];
+            producto.categoria = buscarCategoria(int.Parse(linea.Split(';')[2]));
+            producto.FechaVencimiento = DateTime.Parse(linea.Split(';')[3]);
+            producto.Precio = double.Parse(linea.Split(';')[4]);
+            //var producto = new Producto
+            //{
+            //    Referencia = linea.Split(';')[0],
+            //    Nombre = linea.Trim().Split(';')[1],
+            //    categoria = buscarCategoria(int.Parse(linea.Split(';')[2])),
+            //    FechaVencimiento =DateTime.Parse(linea.Split(';')[3]),
+            //    Precio=double.Parse(linea.Split(';')[4]),
+            //};
             return producto;
+        }
+        RepositorioCategoria repositorioCategoria = new RepositorioCategoria();
+        public Categoria buscarCategoria(int id)
+        {
+            var categoria = new Categoria();
+            foreach (var item in repositorioCategoria.Leer())
+            {
+                if (item.IdCategoria.Equals(id))
+                {
+                     categoria = item;
+                    return item;
+                }
+            }
+            return  categoria;
         }
     }
 }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 namespace Logica
 {
     public class ServicioCategoria
@@ -19,12 +18,12 @@ namespace Logica
         {
             return ListaCategoria;
         }
-        public Categoria buscar(int id)
+        public Categoria buscar(string nombre)
         {
             var categoria = new Categoria();
             foreach (var item in RepositorioCategoria.Leer())
             {
-                if (item.IdCategoria.Equals(id))
+                if (item.nombreCategoria.Equals(nombre))
                 {
                     categoria = item;
                 }
